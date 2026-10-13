@@ -1,0 +1,23 @@
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+build/
+dist/
+*.db
+*.sqlite
+*.sqlite3
+# Generated output and logs (remove entries if these are intentional fixtures)
+targets.txt
+ips.txt
+domains.txt
+urls.txt
+cidrs.txt
+audit.jsonl
+rejects.jsonl
+stats.json
+*.log
+!examples/*.log
