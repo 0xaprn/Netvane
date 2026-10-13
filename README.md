@@ -1,53 +1,47 @@
-<p align="center">
-  <img src="assets/netvane-banner.png" alt="NETVANE | Extract the signal. Discard the noise." width="100%">
-</p>
+<div align="center">
 
-<p align="center">
-  <img src="assets/python.png" alt="Python 3.10+" height="26">
-  <img src="assets/tests.png" alt="54 tests passed locally" height="26">
-  <img src="assets/dependencies.png" alt="Zero runtime dependencies" height="26">
-  <a href="LICENSE"><img src="assets/license.png" alt="MIT License" height="26"></a>
-</p>
+<img src="assets/netvane-hero.svg" alt="NETVANE — Extract the signal. Discard the noise." width="100%" />
 
-<p align="center">
-  <strong>Find the targets. Leave the noise.</strong><br>
-  Extract, validate, normalize and export IP addresses, domains, URLs and network ranges<br>
-  from pasted text, logs and structured files — with a focused interactive CLI.
-</p>
+<br/>
 
-<p align="center">
-  <a href="#quick-start">Quick start</a> &nbsp;·&nbsp;
-  <a href="#live-terminal">Terminal</a> &nbsp;·&nbsp;
-  <a href="#capabilities">Capabilities</a> &nbsp;·&nbsp;
-  <a href="#examples">Examples</a> &nbsp;·&nbsp;
-  <a href="#cli-reference">CLI reference</a> &nbsp;·&nbsp;
-  <a href="#security--scope">Security</a>
-</p>
+<a href="#installation"><img alt="Python 3.10+" src="assets/badge-python.svg" height="24" /></a>&nbsp;
+<a href="#testing"><img alt="54 tests passed locally" src="assets/badge-tests.svg" height="24" /></a>&nbsp;
+<a href="#features"><img alt="0 runtime dependencies" src="assets/badge-runtime.svg" height="24" /></a>&nbsp;
+<a href="LICENSE"><img alt="MIT License" src="assets/badge-license.svg" height="24" /></a>
+
+<br/>
+<br/>
+
+**A focused Python terminal utility for turning noisy text into clean network indicators.**
+
+Extract IPv4, IPv6, domains, URLs and CIDRs from pasted text, logs and structured files.  
+Validate, normalize, filter, deduplicate and export — without installing a scanner.
+
+[**Install**](#installation) · [**See the CLI**](#the-terminal) · [**Modes**](#extraction-modes) · [**Examples**](#examples) · [**Options**](#reference)
+
+</div>
 
 ---
 
-## Live terminal
+## The terminal
 
-The interface below is **actual Netvane output**, captured during an extraction run. The CLI inherits your terminal's background and adds restrained red highlights; it does not install a theme.
+Launch `netvane` without arguments. Select your extraction mode, choose an input file or paste text, adjust cleanup settings, and pick the destination filename.
 
-<table>
-<tr>
-<td width="54%" align="center" valign="top">
-  <strong>01 — Configure</strong><br><br>
-  <img src="assets/terminal-menu.png" alt="Netvane interactive mode selection, input and cleanup prompts" width="430">
-</td>
-<td width="46%" align="center" valign="top">
-  <strong>02 — Results</strong><br><br>
-  <img src="assets/terminal-results.png" alt="Netvane terminal extraction summary with IPv4, IPv6, domain, URL and CIDR counts" width="430">
-</td>
-</tr>
-</table>
+<div align="center">
+  <img src="assets/netvane-terminal.svg" alt="Netvane interactive terminal illustrating selectable extraction modes and completion statistics" width="100%" />
+  <sub>Vector-rendered walkthrough based on the CLI. Actual colors inherit your terminal and only appear when supported.</sub>
+</div>
 
-> **Interactive by default.** Run `netvane` without arguments to choose your extraction mode, provide input, adjust cleanup settings and select the output filename. Supply flags to use it non-interactively in scripts and pipelines.
+<br/>
 
-## Quick start
+> [!TIP]
+> Run it interactively for one-off cleanup, or pass flags for reproducible scripts and pipelines. The normal CLI doesn't require an interactive session.
 
-**Requires Python 3.10 or newer. No third-party runtime packages.**
+## Installation
+
+**Python 3.10+ · Linux / macOS / Windows (direct runner) · No third-party runtime dependencies**
+
+### Try it without installing
 
 ```bash
 git clone https://github.com/0xaprn/Netvane.git
@@ -55,170 +49,184 @@ cd Netvane
 python3 run.py
 ```
 
-Install the `netvane` command for your user account on Linux or macOS:
+### Install the `netvane` command (Linux / macOS)
 
 ```bash
 python3 install.py
 netvane
 ```
 
-The installer copies the package to `~/.local/share/netvane` and creates `~/.local/bin/netvane`. It does not require `sudo`, `pip` or a downloaded wheel. If your shell does not find `netvane`, add `~/.local/bin` to your `PATH` and reopen your terminal:
+The optional user-local installer copies the Python package to `~/.local/share/netvane` and creates the executable `~/.local/bin/netvane`. No `sudo`, `pip`, wheel download or global Python modification needed. If your shell cannot find the command, add the directory to your `PATH`:
 
 ```bash
 export PATH="$HOME/.local/bin:$PATH"
 ```
 
-To update a copy installed by this script, run `python3 install.py --force` from the updated checkout. On Windows, use `python3 run.py` or a standard Python virtual environment.
+To refresh a user-local installation from a newer checkout, run `python3 install.py --force`. On Windows, use `python3 run.py`.
 
-## Capabilities
+## Extraction modes
 
-| | Feature | What it does |
+| Selection | Indicators | Use case |
 |:--:|---|---|
-| `01` | **IP extraction** | Validates IPv4 and IPv6, including canonical formatting and optional port removal |
-| `02` | **Domain + URL extraction** | Extracts hostnames, internationalized domains and optionally full HTTP(S) URLs |
-| `03` | **Networks** | Parses IPv4/IPv6 CIDRs when requested |
-| `04` | **Messy inputs** | Reads pasted text, logs, CSV, TSV, JSON, JSONL and gzip files |
-| `05` | **Normalization** | Handles defanged indicators, validates ports and deduplicates normalized results |
-| `06` | **Filtering** | Selects indicator types; filters non-global literals or applies explicit scope rules |
-| `07` | **Evidence trail** | Records source, original match, duplicates and rejected or ambiguous candidates |
-| `08` | **Export + scale** | Writes TXT, CSV or JSONL; supports split files and SQLite-backed deduplication |
+| `01` | **IPv4** | IPv4 addresses only |
+| `02` | **IPv6** | IPv6 addresses only |
+| `03` | **Domains** | Domain and hostname lists |
+| `04` | **IPv4 + IPv6** | Mixed-address input |
+| `05` | **IPv4 + domains** | Common target-list cleanup |
+| `06` | **IPv6 + domains** | IPv6-heavy inventories |
+| `07` | **IPv4 + IPv6 + domains** | Host indicators (default) |
+| `08` | **Everything** | Include URLs and CIDR blocks |
+| `09` | **Custom** | Select exactly the desired types |
+
+The wizard also prompts for defanged-text decoding, port removal, non-global IP filtering, sorting, output names, overwrite confirmation and optional advanced settings.
+
+## Features
+
+<table>
+<tr><td width="50%" valign="top">
+
+**01 / Recognize**
+
+IPv4 · IPv6 · IDN hostnames · HTTP(S) URLs · IPv4/IPv6 CIDRs
+
+**02 / Clean**
+
+Defanged indicator decoding, port validation, normalization and ambiguity handling
+
+**03 / Filter**
+
+Type selection, global-IP filtering, inclusion scopes and exclusion rules
+
+</td><td width="50%" valign="top">
+
+**04 / Import**
+
+Text · CSV · TSV · JSON · JSONL · gzip · standard input
+
+**05 / Trace**
+
+Source details, rejected candidates, duplicate information and JSONL audit
+
+**06 / Export**
+
+TXT · CSV · JSONL · split output files · in-memory or SQLite deduplication
+
+</td></tr>
+</table>
 
 ## Examples
 
-### From noisy input to targets
-
-```text
-[200] https://portal.example.org/login
-[403] 203.0.113.15:8443
-[INFO] hxxps://test[.]example[.]com
-[WARN] report.pdf
-[ERR] 999.1.2.3
-```
+### Pull IPv4s and domains from a log
 
 ```bash
-netvane examples/messy.log --fang --types ipv4,domain \
-  --audit audit.jsonl -o targets.txt
+netvane examples/messy.log --fang --types ipv4,domain -o targets.txt
 ```
 
-The extracted host indicators are `portal.example.org`, `203.0.113.15:8443` and `test.example.com`. The optional audit distinguishes ambiguous `report.pdf` from invalid `999.1.2.3`. Documentation-range IPs are excluded when `--public-only` is enabled.
-
-### Ready-to-use commands
+### Extract each indicator type separately
 
 ```bash
-# IPv4 only, IPv6 only, or domains only
 netvane examples/messy.log --types ipv4 -o ipv4.txt
 netvane examples/messy.log --types ipv6 -o ipv6.txt
 netvane examples/messy.log --types domain -o domains.txt
+```
 
-# Combined hosts with ports removed
-netvane examples/messy.log --types ipv4,ipv6,domain --strip-ports -o hosts.txt
+### Keep URLs, strip ports, write an audit
 
-# Extract full URLs and defanged hostnames
-netvane examples/messy.log --fang --types domain,url -o indicators.txt
+```bash
+netvane examples/messy.log --types ipv4,domain,url --fang \
+  --strip-ports --audit audit.jsonl -o targets.txt
+```
 
-# Separate exports with an evidence trail
-netvane examples/messy.log --ips-out ips.txt --domains-out domains.txt \
-  --audit audit.jsonl -o targets.txt
+### Filter to a defined asset scope
 
-# Read selected fields from structured records
-netvane examples/findings.csv --field target --format jsonl -o findings.jsonl
-netvane examples/events.jsonl --field url --field host -o events-targets.txt
-
-# Restrict extracted indicators to a scope file
+```bash
 netvane examples/messy.log --scope examples/scope.txt -o scoped.txt
+```
 
-# Use SQLite-backed deduplication for larger datasets
-netvane examples/messy.log --dedupe sqlite -o targets.txt
+### Pipe into another command
 
-# Print results without the interactive UI or status text
+```bash
 cat examples/messy.log | netvane --types ipv4,domain -o - --quiet
 ```
 
-> **Output protection:** Existing output files require explicit `--force` or confirmation in the interactive menu. Review generated target lists, URLs and audit records before sharing them; they can contain sensitive strings.
+### Export structured findings
 
-## CLI reference
-
-Run `netvane --help` for built-in help. The main command-line options are documented below.
-
-<details>
-<summary><strong>Inputs and output formats</strong></summary>
-
-| Option | Purpose |
-|---|---|
-| `FILE ...` | One or more input files; use `-` or omit the file for stdin |
-| `--wizard` | Explicitly open the guided interactive menu |
-| `--types ipv4,ipv6,domain,url,cidr` | Select indicator types |
-| `-o`, `--output PATH` | Combined results; `-` writes to stdout (default `targets.txt`) |
-| `-f`, `--force` | Allow replacing existing output files |
-| `--input-format` | `auto`, `text`, `csv`, `tsv`, `json`, `jsonl` |
-| `--field KEY` | Select a CSV column or JSON key; repeatable |
-| `--format` | `lines`, `csv`, or `jsonl` |
-| `--ips-out PATH` | Write an IP-only list |
-| `--domains-out PATH` | Write a domain-only list |
-| `--urls-out PATH` | Write full URLs; URL extraction must be enabled |
-| `--cidrs-out PATH` | Write CIDR ranges; CIDR extraction must be enabled |
-| `--audit PATH` | Write a JSONL event audit |
-| `--rejects-out PATH` | Write rejected and ambiguous candidates as JSONL |
-| `--stats-json PATH` | Write machine-readable extraction statistics |
-
-</details>
-
-<details>
-<summary><strong>Parsing, filtering and performance</strong></summary>
-
-| Option | Purpose |
-|---|---|
-| `--fang` | Decode defanged URL and hostname forms |
-| `--keep-urls` | Retain full HTTP(S) URLs alongside hosts |
-| `--cidr` | Enable network-range extraction |
-| `--strip-ports` | Remove ports from hosts and IPs |
-| `--include-ambiguous` | Include filename-like strings that could be domains |
-| `--public-only` | Exclude non-global IP/network literals, without DNS resolution |
-| `--scope PATH` | Include indicators matching a scope file |
-| `--exclude PATH` | Exclude indicators matching a scope file |
-| `--dedupe memory|sqlite` | Select in-memory or disk-backed uniqueness tracking |
-| `--sort` | Sort results (uses extra memory) |
-| `--max-line-chars N` | Skip oversized input fields (default: 1,000,000; 0 disables) |
-| `--ui auto|always|never` | Control terminal status output |
-| `--no-color` | Disable ANSI color; also respects `NO_COLOR=1` |
-| `-q`, `--quiet` | Suppress informational messages |
-| `--help`, `--version` | Show help and version |
-
-</details>
-
-<details>
-<summary><strong>Scopes, normalization and source tracking</strong></summary>
-
-**Scope file syntax:**
-
-```text
-example.org          # root domain and subdomains
-*.example.net        # subdomains only
-=portal.example.com  # exact host
-192.0.2.0/24         # IPv4 range
-2001:db8::/32        # IPv6 range
+```bash
+netvane examples/findings.csv --field target --format jsonl -o findings.jsonl
 ```
 
-- Domains are lowercased and IDNA-normalized. IPs and networks use canonical forms; ports are validated.
-- The first-seen order is preserved unless `--sort` is enabled. Duplicates are keyed by indicator type and normalized value.
-- Text, CSV, TSV and JSONL are processed incrementally. Full JSON documents load in memory.
-- Audit exports can track accepted, duplicate, filtered and rejected candidates along with source details.
-- A scope rule does not establish asset ownership or authorization; filtering uses literal IPs, networks and domains without DNS queries.
+> [!IMPORTANT]
+> Netvane processes supplied data; it does **not** scan hosts, resolve DNS, contact URLs, or check whether extracted targets are live. Existing output files require confirmation in the menu or an explicit `--force` flag.
+
+## Reference
+
+<details>
+<summary><strong>Input and export options</strong></summary>
+
+| Flag | Action |
+|---|---|
+| `FILE ...` | Read files, or use `-`/stdin |
+| `--wizard` | Open the guided terminal menu |
+| `--types ipv4,ipv6,domain,url,cidr` | Choose indicators |
+| `-o`, `--output PATH` | Combined output, `-` for stdout |
+| `--force` | Allow overwriting an existing output |
+| `--input-format` | `auto`, `text`, `csv`, `tsv`, `json`, `jsonl` |
+| `--field KEY` | Select structured-data fields; repeatable |
+| `--format` | `lines`, `csv`, `jsonl` |
+| `--ips-out`, `--domains-out` | Separate IP and domain lists |
+| `--urls-out`, `--cidrs-out` | Separate URL and network lists |
+| `--audit`, `--rejects-out` | JSONL audit and rejection output |
+| `--stats-json` | Export extraction statistics |
 
 </details>
 
-## Security & scope
+<details>
+<summary><strong>Parsing, filtering and display options</strong></summary>
 
-Netvane **parses supplied files**. It does not probe networks, resolve domains, follow URLs, execute extracted content, run shell commands or send telemetry. It can process data collected from online sources, but extraction itself makes no outbound requests.
+| Flag | Action |
+|---|---|
+| `--fang` | Decode common defanged indicators |
+| `--keep-urls` | Preserve full HTTP(S) URLs |
+| `--cidr` | Recognize CIDR ranges |
+| `--strip-ports` | Normalize to host-only values |
+| `--include-ambiguous` | Keep filename-like domains |
+| `--public-only` | Filter non-global IP and network literals |
+| `--scope`, `--exclude` | Include and exclude by scope file |
+| `--dedupe memory|sqlite` | Select the deduplication backend |
+| `--sort` | Sort results (additional memory required) |
+| `--max-line-chars N` | Set field-length cap; `0` disables |
+| `--ui auto|always|never` | Control visual terminal status |
+| `--no-color`, `--quiet` | Control terminal output |
+| `--version`, `--help` | Show version/help |
 
-- **No silent overwrite.** Existing output requires explicit authorization; final-component output symlinks are rejected.
-- **Potentially sensitive exports.** Full URLs and audits may include tokens, paths, passwords or query strings. Treat exports as data that may need redaction.
-- **Heuristic parsing.** A valid-looking hostname may not exist, and filename-like strings can be ambiguous. It is not a live scanner or validator of domain ownership.
-- **Resource limits.** Full JSON files and sorted output can require substantial memory. Interrupted jobs may leave partial output files.
+</details>
 
-Read the [security policy](SECURITY.md) for reporting guidance and additional limitations.
+<details>
+<summary><strong>Input normalization, scope rules and scaling</strong></summary>
 
-## Development
+A scope list supports domains, exact hosts, subdomain patterns and CIDR ranges:
+
+```text
+example.org
+*.example.net
+=portal.example.com
+192.0.2.0/24
+2001:db8::/32
+```
+
+Hostnames are normalized to lowercase/IDNA, IP addresses and networks to canonical forms, and ports validated. Text, CSV, TSV and JSONL support incremental input processing. Full JSON documents and sorted outputs can require substantial memory. `--dedupe sqlite` provides disk-backed uniqueness tracking for larger datasets.
+
+Scope matching does not prove ownership of a host or authorization to access it. No DNS lookups are performed.
+
+</details>
+
+## Security
+
+Netvane is a **local parser**, not an active scanner. It does not launch shell commands, follow extracted URLs or send telemetry. Treat input and output as potentially sensitive: query strings, audit logs and original matches may contain credentials or other secrets. Review generated outputs before sharing.
+
+See [SECURITY.md](SECURITY.md) for responsible reporting and known limitations.
+
+## Testing
 
 ```bash
 PYTHONPATH=src python3 -m unittest discover -s tests -v
@@ -226,24 +234,24 @@ python3 -m compileall -q src
 python3 run.py --help
 ```
 
-The repository also includes a [GitHub Actions workflow](.github/workflows/tests.yml) to test Python 3.10, 3.11, 3.12 and 3.13 on supported runners.
+The [GitHub Actions workflow](.github/workflows/tests.yml) runs unit tests on Python 3.10–3.13. The badge above reflects 54 locally passing tests in this release; it is **not** a live CI status indicator.
 
 <details>
-<summary><strong>Project structure</strong></summary>
+<summary><strong>Repository layout</strong></summary>
 
 ```text
 Netvane/
-├── .github/workflows/   Automated test workflow
-├── assets/              Banner, badges and terminal captures
-├── examples/            Sanitized sample input
-├── src/netvane/         Parser, filters, CLI and terminal UI
-├── tests/               Standard-library unit tests
-├── run.py               Run without installing
-├── install.py           User-local command installer
-├── pyproject.toml       Package metadata and CLI entry point
+├── .github/workflows/   Automated tests
+├── assets/              Vector artwork and social preview
+├── examples/            Sample input
+├── src/netvane/         Extraction engine and terminal UI
+├── tests/               Unit tests
+├── run.py               Direct launcher
+├── install.py           User-local installer
+├── pyproject.toml       Package metadata
 ├── README.md
-├── SECURITY.md
 ├── CHANGELOG.md
+├── SECURITY.md
 └── LICENSE
 ```
 
@@ -251,7 +259,10 @@ Netvane/
 
 ---
 
-<p align="center">
-  <strong>NETVANE</strong> &nbsp; / &nbsp; EXTRACT THE SIGNAL. DISCARD THE NOISE.<br>
-  <sub>Maintained by <a href="https://github.com/0xaprn">0xaprn</a> · <a href="LICENSE">MIT License</a> · <a href="CHANGELOG.md">Changelog</a></sub>
-</p>
+<div align="center">
+
+**NETVANE** / EXTRACT THE SIGNAL. DISCARD THE NOISE.
+
+<sub>Created by <a href="https://github.com/0xaprn">0xaprn</a> · <a href="LICENSE">MIT</a> · <a href="CHANGELOG.md">Changelog</a></sub>
+
+</div>
