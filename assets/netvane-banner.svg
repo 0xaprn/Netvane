@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" role="img" aria-labelledby="title desc">
+  <title id="title">NETVANE — extract the signal</title>
+  <desc id="desc">Dark graphite Netvane project banner with restrained crimson accents and a terminal-style extraction preview.</desc>
+  <defs>
+    <linearGradient id="base" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0d0f13"/>
+      <stop offset="100%" stop-color="#15171d"/>
+    </linearGradient>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#b9384a"/>
+      <stop offset="100%" stop-color="#461c29"/>
+    </linearGradient>
+    <pattern id="dots" width="25" height="25" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="0.8" fill="#34323a" opacity="0.55"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="360" rx="13" fill="url(#base)"/>
+  <rect width="1200" height="360" rx="13" fill="url(#dots)" opacity="0.55"/>
+  <path d="M0 54 H1200 M0 305 H1200" stroke="#33333a" stroke-width="1" opacity="0.7"/>
+  <rect x="0" y="0" width="8" height="360" fill="#a72a3d"/>
+  <path d="M28 53 H210" stroke="url(#line)" stroke-width="2"/>
+  <text x="38" y="35" fill="#a1a3ac" font-family="DejaVu Sans Mono, Consolas, monospace" font-size="13" letter-spacing="2">0XAPRN / NETWORK UTILITIES</text>
+  <text x="1045" y="35" fill="#7e808b" font-family="DejaVu Sans Mono, Consolas, monospace" font-size="13" letter-spacing="1">TOOL / 001</text>
+  <rect x="45" y="89" width="78" height="78" rx="8" fill="#15151b" stroke="#ae3546" stroke-width="1.5"/>
+  <path d="M66 146 V110 L101 146 V110" stroke="#d34b5d" stroke-width="7" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+  <text x="147" y="148" fill="#ede9eb" font-family="DejaVu Sans Mono, Consolas, monospace" font-weight="bold" font-size="67" letter-spacing="2">NETVANE</text>
+  <text x="48" y="210" fill="#c0bec5" font-family="DejaVu Sans Mono, Consolas, monospace" font-size="22">Extract the signal. Discard the noise.</text>
+  <path d="M48 232 H605" stroke="#4e2b35" stroke-width="1"/>
+  <text x="48" y="261" fill="#8e919e" font-family="DejaVu Sans Mono, Consolas, monospace" font-size="15">IPv4  /  IPv6  /  DOMAINS  /  URLs  /  CIDR</text>
+  <text x="48" y="331" fill="#757783" font-family="DejaVu Sans Mono, Consolas, monospace" font-size="12" letter-spacing="1.8">PYTHON CLI  ·  NO RUNTIME DEPENDENCIES</text>
+  <rect x="712" y="81" width="444" height="210" rx="7" fill="#0a0c10" stroke="#39343a"/>
+  <rect x="712" y="81" width="444" height="32" rx="7" fill="#1c1b21"/>
+  <rect x="712" y="106" width="444" height="8" fill="#1c1b21"/>
+  <circle cx="733" cy="97" r="4" fill="#ab3444"/>
+  <circle cx="750" cy="97" r="4" fill="#594451"/>
+  <circle cx="767" cy="97" r="4" fill="#363944"/>
+  <text x="799" y="102" fill="#b3aeb9" font-family="DejaVu Sans Mono, Consolas, monospace" font-size="13">netvane  /  extract</text>
+  <text x="735" y="143" fill="#9b9eaa" font-family="DejaVu Sans Mono, Consolas, monospace" font-size="13">$ netvane examples/messy.log --fang</text>
+  <path d="M734 157 H1135" stroke="#2d2e35"/>
+  <text x="735" y="180" fill="#b93b4b" font-family="DejaVu Sans Mono, Consolas, monospace" font-size="13">[+] </text>
+  <text x="779" y="180" fill="#dedce0" font-family="DejaVu Sans Mono, Consolas, monospace" font-size="13">portal.example.org</text>
+  <text x="1068" y="180" fill="#747887" font-family="DejaVu Sans Mono, Consolas, monospace" font-size="12">DOMAIN</text>
+  <text x="735" y="207" fill="#b93b4b" font-family="DejaVu Sans Mono, Consolas, monospace" font-size="13">[+] </text>
+  <text x="779" y="207" fill="#dedce0" font-family="DejaVu Sans Mono, Consolas, monospace" font-size="13">203.0.113.15:8443</text>
+  <text x="1075" y="207" fill="#747887" font-family="DejaVu Sans Mono, Consolas, monospace" font-size="12">IPv4</text>
+  <text x="735" y="234" fill="#b93b4b" font-family="DejaVu Sans Mono, Consolas, monospace" font-size="13">[+] </text>
+  <text x="779" y="234" fill="#dedce0" font-family="DejaVu Sans Mono, Consolas, monospace" font-size="13">test.example.com</text>
+  <text x="1068" y="234" fill="#747887" font-family="DejaVu Sans Mono, Consolas, monospace" font-size="12">DOMAIN</text>
+  <text x="735" y="268" fill="#6d737c" font-family="DejaVu Sans Mono, Consolas, monospace" font-size="12">VALIDATE  →  NORMALIZE  →  EXPORT</text>
+</svg>
