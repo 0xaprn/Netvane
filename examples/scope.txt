@@ -1,0 +1,5 @@
+# Examples for allowlisting: substitute addresses and domains within your scope
+example.org
+*.example.com
+192.0.2.0/24
+2001:db8::/32

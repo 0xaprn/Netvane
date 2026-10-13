@@ -1,0 +1,4 @@
+target,status,source
+203.0.113.15,200,web
+portal.example.org,200,web
+hxxps://test[.]example[.]com,302,inventory

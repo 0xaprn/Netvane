@@ -1,0 +1,5 @@
+[200] https://portal.example.org/login
+[403] 203.0.113.15:8443
+[INFO] hxxps://test[.]example[.]com
+[WARN] report.pdf
+[ERR] 999.1.2.3
