@@ -23,7 +23,7 @@ Validate, normalize, filter, deduplicate and export — without installing a sca
 
 ---
 
-## The terminal
+## Interface
 
 Launch `netvane` without arguments. Select your extraction mode, choose an input file or paste text, adjust cleanup settings, and pick the destination filename.
 
@@ -64,7 +64,7 @@ export PATH="$HOME/.local/bin:$PATH"
 
 To refresh a user-local installation from a newer checkout, run `python3 install.py --force`. On Windows, use `python3 run.py`.
 
-## Extraction modes
+## Extraction
 
 | Selection | Indicators | Use case |
 |:--:|---|---|
@@ -261,7 +261,7 @@ Netvane/
 
 <div align="center">
 
-**NETVANE** / EXTRACT THE SIGNAL. DISCARD THE NOISE.
+**NETVANE**
 
 <sub>Created by <a href="https://github.com/0xaprn">0xaprn</a> · <a href="LICENSE">MIT</a> · <a href="CHANGELOG.md">Changelog</a></sub>
 
